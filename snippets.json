@@ -1,0 +1,167 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2024-01-15",
+  "snippets": [
+    {
+      "id": "default-1",
+      "title": "📜 Country Event",
+      "desc": "Standard country event with options",
+      "category": "events",
+      "code": "namespace = my_events\n\nmy_events.1 = {\n\ttype = country_event\n\tplacement = root\n\n\ttitle = my_events.1.t\n\tdesc = my_events.1.d\n\tflavor = my_events.1.f\n\n\tduration = 3\n\n\ticon = \"gfx/interface/icons/event_icons/event_portrait.dds\"\n\n\ttrigger = {\n\t\t# Conditions for event to fire\n\t}\n\n\timmediate = {\n\t\t# Effects when event fires\n\t}\n\n\toption = {\n\t\tname = my_events.1.a\n\t\tdefault_option = yes\n\n\t\t# Option effects\n\t}\n\n\toption = {\n\t\tname = my_events.1.b\n\n\t\t# Alternative option effects\n\t}\n}"
+    },
+    {
+      "id": "default-1b",
+      "title": "📜 State Event",
+      "desc": "Event scoped to a state",
+      "category": "events",
+      "code": "namespace = my_events\n\nmy_events.2 = {\n\ttype = state_event\n\tplacement = scope:target_state\n\n\ttitle = my_events.2.t\n\tdesc = my_events.2.d\n\n\tduration = 3\n\n\ttrigger = {\n\t\texists = scope:target_state\n\t}\n\n\timmediate = {\n\n\t}\n\n\toption = {\n\t\tname = my_events.2.a\n\t\tdefault_option = yes\n\t}\n}"
+    },
+    {
+      "id": "default-1c",
+      "title": "📜 Character Event",
+      "desc": "Event for character interactions",
+      "category": "events",
+      "code": "namespace = my_events\n\nmy_events.3 = {\n\ttype = character_event\n\tplacement = root\n\n\ttitle = my_events.3.t\n\tdesc = my_events.3.d\n\n\tduration = 3\n\n\ttrigger = {\n\t\texists = scope:target_character\n\t\tscope:target_character = {\n\t\t\tis_busy = no\n\t\t}\n\t}\n\n\timmediate = {\n\n\t}\n\n\toption = {\n\t\tname = my_events.3.a\n\t\tdefault_option = yes\n\t}\n}"
+    },
+    {
+      "id": "default-2",
+      "title": "⚖️ Decision",
+      "desc": "Country decision template",
+      "category": "decisions",
+      "code": "my_decision = {\n\tis_shown = {\n\t\t# When to show this decision\n\t\tNOT = { has_variable = my_decision_done }\n\t}\n\n\tpossible = {\n\t\t# Requirements to take decision\n\t\tis_at_war = no\n\t\thas_technology_researched = nationalism\n\t}\n\n\twhen_taken = {\n\t\t# Effects when decision is taken\n\t\tset_variable = my_decision_done\n\t\tadd_modifier = {\n\t\t\tname = my_decision_modifier\n\t\t\tmonths = 120\n\t\t}\n\t\ttrigger_event = { id = my_events.1 }\n\t}\n\n\tai_chance = {\n\t\tbase = 100\n\t\tmodifier = {\n\t\t\ttrigger = {\n\t\t\t\t# AI conditions\n\t\t\t}\n\t\t\tadd = 50\n\t\t}\n\t}\n}"
+    },
+    {
+      "id": "default-3",
+      "title": "📖 Journal Entry",
+      "desc": "Mission/objective journal entry",
+      "category": "journal",
+      "code": "je_my_journal = {\n\ticon = \"gfx/interface/icons/event_icons/event_default.dds\"\n\tgroup = je_group_historical_content\n\n\tis_shown_when_inactive = no\n\n\tpossible = {\n\t\t# When journal entry can activate\n\t\thas_technology_researched = nationalism\n\t}\n\n\timmediate = {\n\t\t# Effects when journal activates\n\t}\n\n\tcomplete = {\n\t\t# Completion conditions\n\t\tscope:journal_entry = {\n\t\t\tis_goal_complete = yes\n\t\t}\n\t}\n\n\ton_complete = {\n\t\t# Rewards\n\t\ttrigger_event = { id = my_events.1 }\n\t\tadd_modifier = {\n\t\t\tname = je_completion_reward\n\t\t\tmonths = 120\n\t\t}\n\t}\n\n\tfail = {\n\t\t# Failure conditions\n\t}\n\n\ton_fail = {\n\t\t# Failure effects\n\t}\n\n\tprogressbar = yes\n\n\tcurrent_value = {\n\t\tvalue = root.gdp\n\t}\n\n\tgoal_add_value = {\n\t\tvalue = 1000000\n\t}\n\n\tweight = 1000\n\n\tshould_be_pinned_by_default = yes\n}"
+    },
+    {
+      "id": "default-4",
+      "title": "🎯 Scripted Trigger",
+      "desc": "Reusable condition check",
+      "category": "scripted",
+      "code": "my_custom_trigger = {\n\tOR = {\n\t\thas_law = law_type:law_monarchy\n\t\thas_law = law_type:law_theocracy\n\t\thas_law = law_type:law_presidential_republic\n\t}\n\tNOT = {\n\t\tis_subject = yes\n\t}\n\tany_scope_state = {\n\t\tis_incorporated = yes\n\t\tstate_region = s:STATE_REGION\n\t}\n}"
+    },
+    {
+      "id": "default-5",
+      "title": "⚡ Scripted Effect",
+      "desc": "Reusable effect block",
+      "category": "scripted",
+      "code": "my_custom_effect = {\n\tadd_modifier = {\n\t\tname = my_modifier\n\t\tmonths = 24\n\t}\n\n\tadd_loyalists = {\n\t\tvalue = 0.1\n\t\tstrata = middle\n\t}\n\n\tevery_scope_state = {\n\t\tlimit = {\n\t\t\tis_incorporated = yes\n\t\t}\n\t\tadd_modifier = {\n\t\t\tname = state_modifier\n\t\t\tmonths = 12\n\t\t}\n\t}\n\n\tif = {\n\t\tlimit = {\n\t\t\thas_law = law_type:law_monarchy\n\t\t}\n\t\t# Monarchy specific effects\n\t}\n}"
+    },
+    {
+      "id": "default-6",
+      "title": "🏭 Building Definition",
+      "desc": "Custom building template",
+      "category": "buildings",
+      "code": "building_my_building = {\n\tbuilding_group = bg_manufacturing\n\n\ttexture = \"gfx/interface/icons/building_icons/building_my_building.dds\"\n\n\tcity_type = city\n\n\tlevels_per_mesh = 5\n\n\tunlocking_technologies = {\n\t\tmanufacturies\n\t}\n\n\tproduction_method_groups = {\n\t\tpmg_my_building_process\n\t\tpmg_my_building_automation\n\t\tpmg_ownership_capital_building_manufacturing\n\t}\n\n\trequired_construction = construction_cost_medium\n\n\tai_value = 1000\n\n\tshould_auto_expand = {\n\t\tdefault_auto_expand_rule = yes\n\t}\n}"
+    },
+    {
+      "id": "default-7",
+      "title": "📊 Country Modifier",
+      "desc": "Modifier applied to country",
+      "category": "modifiers",
+      "code": "my_country_modifier = {\n\ticon = gfx/interface/icons/modifiers/my_modifier.dds\n\n\t# Economy\n\tcountry_tax_income_add = 50000\n\tcountry_loan_interest_rate_mult = -0.1\n\n\t# Military\n\tcountry_army_power_projection_mult = 0.1\n\tcountry_navy_power_projection_mult = 0.1\n\n\t# Politics\n\tcountry_authority_mult = 0.1\n\tcountry_legitimacy_govt_total_votes_add = 10\n\n\t# Diplomacy\n\tcountry_prestige_mult = 0.15\n\tcountry_infamy_decay_mult = 0.1\n\n\t# Tech\n\tcountry_weekly_innovation_mult = 0.05\n}"
+    },
+    {
+      "id": "default-8",
+      "title": "📜 Law Definition",
+      "desc": "Custom law template",
+      "category": "laws",
+      "code": "law_my_custom_law = {\n\tgroup = lawgroup_governance_principles\n\n\ticon = \"gfx/interface/icons/law_icons/my_law.dds\"\n\n\tprogressiveness = 50\n\n\tunlocking_technologies = {\n\t\tdemocracy\n\t}\n\n\tdisallowing_laws = {\n\t\tlaw_autocracy\n\t}\n\n\tmodifier = {\n\t\tcountry_legitimacy_govt_total_votes_add = 20\n\t\tcountry_authority_mult = -0.1\n\t}\n\n\tpossible_political_movements = {\n\t\tlaw_universal_suffrage\n\t}\n\n\tai_enact_weight_modifier = {\n\t\tvalue = 0\n\t}\n}"
+    },
+    {
+      "id": "default-9",
+      "title": "📦 Goods Definition",
+      "desc": "Custom trade good",
+      "category": "goods",
+      "code": "my_goods = {\n\ttexture = \"gfx/interface/icons/goods_icons/my_goods.dds\"\n\n\tcost = 30\n\n\tcategory = staple\n\n\tprestige_factor = 1\n\n\ttraded_quantity = 50\n\n\tconvoy_cost_multiplier = 1\n}"
+    },
+    {
+      "id": "default-10",
+      "title": "🔬 Technology",
+      "desc": "Technology definition",
+      "category": "technology",
+      "code": "my_technology = {\n\tera = era_3\n\n\ttexture = \"gfx/interface/icons/technology_icons/my_technology.dds\"\n\n\tcategory = production\n\n\tunlocking_technologies = {\n\t\tmanufacturies\n\t\tmechanical_tools\n\t}\n\n\tmodifier = {\n\t\tcountry_weekly_innovation_mult = 0.05\n\t\tbuilding_group_bg_manufacturing_throughput_mult = 0.1\n\t}\n\n\tai_weight = {\n\t\tvalue = 1\n\t}\n}"
+    },
+    {
+      "id": "default-11",
+      "title": "👤 Character Template",
+      "desc": "Historical character definition",
+      "category": "characters",
+      "code": "c:COUNTRY_TAG = {\n\tcreate_character = {\n\t\tfirst_name = \"John\"\n\t\tlast_name = \"Smith\"\n\t\tbirth_date = 1820.5.15\n\n\t\ttraits = {\n\t\t\texperienced_political_operator\n\t\t\tcharismatic\n\t\t}\n\n\t\truler = yes\n\n\t\tculture = cu:british\n\t\treligion = rel:protestant\n\t\tideology = ideology_reformer\n\t}\n}"
+    },
+    {
+      "id": "default-12",
+      "title": "🏛️ Interest Group",
+      "desc": "Interest group definition",
+      "category": "interest_groups",
+      "code": "ig_my_interest_group = {\n\tcolor = hsv{ 0.55 0.8 0.5 }\n\n\ttexture = \"gfx/interface/icons/ig_icons/my_ig.dds\"\n\n\tlayer = \"revolution_dynamic_my_ig\"\n\n\tindex = 10\n\n\tideologies = {\n\t\tideology_reformer\n\t\tideology_liberal\n\t}\n\n\tenable = {\n\t\talways = yes\n\t}\n\n\tpop_potential = {\n\t\tNOT = { is_pop_type = peasants }\n\t\tliteracy_rate > 0.25\n\t}\n\n\tpop_weight = {\n\t\tvalue = 0\n\t}\n}"
+    },
+    {
+      "id": "default-13",
+      "title": "🤝 Diplomatic Action",
+      "desc": "Custom diplomatic action",
+      "category": "diplomacy",
+      "code": "my_diplomatic_action = {\n\tgroups = { general }\n\n\trequires_approval = yes\n\tshould_notify_third_parties = yes\n\n\ttexture = \"gfx/interface/icons/diplomatic_action_icons/my_action.dds\"\n\n\tselectable = {\n\t\tNOT = { is_country_type = decentralized }\n\t}\n\n\tpotential = {\n\t\tscope:target_country = {\n\t\t\tNOT = { is_country_type = decentralized }\n\t\t}\n\t}\n\n\tpossible = {\n\t\thas_diplomatic_relevance = scope:target_country\n\t\tNOT = { has_war_with = scope:target_country }\n\t}\n\n\taccept_effect = {\n\t\t# Effects when accepted\n\t}\n}"
+    },
+    {
+      "id": "default-14",
+      "title": "🏢 Company Type",
+      "desc": "Custom company type",
+      "category": "economy",
+      "code": "company_type_my_company = {\n\ttexture = \"gfx/interface/icons/company_icons/my_company.dds\"\n\n\tflavored_company = no\n\n\tbuilding_types = {\n\t\tbuilding_textile_mills\n\t\tbuilding_furniture_manufacturies\n\t}\n\n\tattainable = {\n\t\thas_technology_researched = manufacturies\n\t}\n\n\tpotential = {\n\t\talways = yes\n\t}\n\n\tpossible = {\n\t\tany_scope_building = {\n\t\t\tis_building_type = building_textile_mills\n\t\t\toccupancy >= 0.8\n\t\t}\n\t}\n\n\tprosperity_modifier = {\n\t\tbuilding_group_bg_manufacturing_throughput_mult = 0.1\n\t}\n}"
+    },
+    {
+      "id": "default-15",
+      "title": "⏰ On Action",
+      "desc": "Trigger events on game actions",
+      "category": "on_actions",
+      "code": "on_monthly_pulse_country = {\n\trandom_events = {\n\t\t100 = 0\n\t\t10 = my_events.1\n\t\t5 = my_events.2\n\t}\n\n\teffect = {\n\t\tif = {\n\t\t\tlimit = {\n\t\t\t\thas_variable = my_counter\n\t\t\t}\n\t\t\tchange_variable = {\n\t\t\t\tname = my_counter\n\t\t\t\tadd = 1\n\t\t\t}\n\t\t}\n\t}\n}"
+    },
+    {
+      "id": "default-16",
+      "title": "🖥️ Scripted GUI",
+      "desc": "Custom GUI with scripted content",
+      "category": "gui",
+      "code": "my_scripted_gui = {\n\tscope = country\n\n\tis_shown = {\n\t\thas_technology_researched = nationalism\n\t}\n\n\tai_is_valid = {\n\t\talways = no\n\t}\n\n\teffect = {\n\t\tcustom_tooltip = {\n\t\t\ttext = my_gui_tooltip\n\n\t\t\tadd_modifier = {\n\t\t\t\tname = my_modifier\n\t\t\t\tmonths = 12\n\t\t\t}\n\t\t}\n\t}\n\n\tcost = {\n\t\tauthority = 50\n\t}\n}"
+    },
+    {
+      "id": "default-17",
+      "title": "🌍 Culture Definition",
+      "desc": "Custom culture",
+      "category": "culture",
+      "code": "my_culture = {\n\tcolor = hsv{ 0.6 0.7 0.7 }\n\n\treligion = protestant\n\n\ttraits = {\n\t\theritage_trait_european\n\t\tlanguage_trait_germanic\n\t}\n\n\tmale_common_first_names = {\n\t\tJohann Hans Friedrich Wilhelm Karl\n\t}\n\n\tfemale_common_first_names = {\n\t\tAnna Maria Elisabeth Sophie\n\t}\n\n\tcommon_last_names = {\n\t\tMuller Schmidt Fischer Weber Wagner\n\t}\n\n\tethnicities = {\n\t\t10 = caucasian\n\t}\n\n\tgraphics = european_gfx\n}"
+    },
+    {
+      "id": "default-18",
+      "title": "🗺️ State Region",
+      "desc": "State region definition",
+      "category": "map",
+      "code": "STATE_MY_STATE = {\n\tid = 999\n\n\tprovinces = {\n\t\t\"x123456\"\n\t\t\"x123457\"\n\t\t\"x123458\"\n\t}\n\n\tsubsistence_building = building_subsistence_farms\n\n\tcity = \"x123456\"\n\tport = \"x123457\"\n\tfarm = \"x123458\"\n\n\tarable_land = 150\n\n\tarable_resources = {\n\t\t\"bg_wheat_farms\"\n\t\t\"bg_livestock_ranches\"\n\t}\n\n\tcapped_resources = {\n\t\tbg_coal_mining = 20\n\t\tbg_iron_mining = 10\n\t}\n\n\ttraits = {\n\t\tstate_trait_fertile_soil\n\t}\n}"
+    },
+    {
+      "id": "default-19",
+      "title": "🔄 Scope Iteration",
+      "desc": "Common scope patterns",
+      "category": "patterns",
+      "code": "# Every - iterates all matching\nevery_scope_state = {\n\tlimit = {\n\t\tis_incorporated = yes\n\t}\n\tadd_modifier = {\n\t\tname = my_modifier\n\t\tmonths = 12\n\t}\n}\n\n# Random - picks one random\nrandom_scope_state = {\n\tlimit = {\n\t\tis_incorporated = yes\n\t}\n\tsave_scope_as = target_state\n}"
+    },
+    {
+      "id": "default-20",
+      "title": "📊 Script Values",
+      "desc": "Dynamic value calculations",
+      "category": "patterns",
+      "code": "my_script_value = {\n\tvalue = 0\n\n\tadd = 100\n\n\tif = {\n\t\tlimit = {\n\t\t\thas_law = law_type:law_monarchy\n\t\t}\n\t\tadd = 50\n\t}\n\n\tmultiply = {\n\t\tvalue = gdp\n\t\tdivide = 1000000\n\t}\n\n\tmin = 10\n\tmax = 1000\n}"
+    },
+    {
+      "id": "default-21",
+      "title": "💬 Localization Pattern",
+      "desc": "Localization with dynamic content",
+      "category": "patterns",
+      "code": "l_english:\n my_mod_name:0 \"My Mod Name\"\n my_event_desc:0 \"The people of [ROOT.GetName] demand change!\"\n my_modifier_desc:0 \"$positive$+10%$!$ Tax Income\""
+    }
+  ]
+}
