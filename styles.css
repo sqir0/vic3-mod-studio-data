@@ -629,4 +629,109 @@
         .vic3-snippet-category-header { padding: 8px 10px; background: var(--vic3-bg-darkest); font-size: 10px; font-weight: 600; text-transform: uppercase; color: var(--vic3-text-dim); margin-top: 8px; border-radius: 4px; }
         .vic3-snippet-category-header:first-child { margin-top: 0; }
         .vic3-snippet-add-section { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--vic3-border); }
+/* Keyword Manager Autocomplete */
+.vic3-km-autocomplete {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 280px;
+    overflow-y: auto;
+    background: #1e1e2e;
+    border: 1px solid #45475a;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    z-index: 1000;
+    display: none;
+    margin-top: 4px;
+}
+
+.vic3-km-autocomplete.active {
+    display: block;
+}
+
+.vic3-km-autocomplete-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #313244;
+    transition: background 0.15s;
+}
+
+.vic3-km-autocomplete-item:last-of-type {
+    border-bottom: none;
+}
+
+.vic3-km-autocomplete-item:hover,
+.vic3-km-autocomplete-item.selected {
+    background: #313244;
+}
+
+.vic3-km-autocomplete-item.selected {
+    border-left: 3px solid var(--vic3-primary, #c9a227);
+    padding-left: 9px;
+}
+
+.vic3-km-ac-icon {
+    font-size: 14px;
+    width: 20px;
+    text-align: center;
+}
+
+.vic3-km-ac-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.vic3-km-ac-keyword {
+    color: #cdd6f4;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.vic3-km-ac-type {
+    font-size: 10px;
+    padding: 2px 6px;
+    background: #45475a;
+    border-radius: 4px;
+    color: #a6adc8;
+    text-transform: uppercase;
+}
+
+.vic3-km-ac-desc {
+    font-size: 11px;
+    color: #6c7086;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+}
+
+.vic3-km-ac-hint {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    padding: 6px;
+    background: #11111b;
+    font-size: 10px;
+    color: #6c7086;
+    border-top: 1px solid #313244;
+}
+
+.vic3-km-ac-hint span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Input wrapper pozisyonlama */
+.vic3-km-field {
+    position: relative;
+}
     `);
