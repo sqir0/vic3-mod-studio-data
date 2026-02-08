@@ -1,7 +1,5 @@
-    const VIC3_DATABASE = {
-        // ═══════════════════════════════════════════════════════════════
-        // TRIGGERS (Koşullar)
-        // ═══════════════════════════════════════════════════════════════
+    window.VIC3_DATABASE = {
+
         triggers: {
             // Core Logic
             'always': { desc: 'Her zaman evet/hayır | always = yes', scopes: 'any' },
