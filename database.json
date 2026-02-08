@@ -368,7 +368,7 @@
         "any_in_global_list": { "desc": "Global liste öğeleri", "scopes": "any" },
         "exists": { "desc": "Var mı | exists = c:TAG", "scopes": "any" }
     },
-        "effects": {
+    "effects": {
         "add_acceptance": { "desc": "Kültürel kabul ekle", "scopes": "country" },
         "add_arable_land": { "desc": "Ekilebilir arazi ekle", "scopes": "state" },
         "add_banned_goods": { "desc": "Yasaklı mal ekle", "scopes": "country" },
