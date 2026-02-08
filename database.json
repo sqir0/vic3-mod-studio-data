@@ -124,7 +124,7 @@
         "top_overlord": { "desc": "En üst efendi", "scopes": "country" },
         "trigger": { "desc": "Tetikleyici blok | trigger = { }", "scopes": "event, decision, je" },
         "value": { "desc": "Değer ifadesi", "scopes": "any" },
-        "variable": { "desc": "Değişken kontrolü", "scopes": "any" }
+        "variable": { "desc": "Değişken kontrolü", "scopes": "any" },
         "always": { "desc": "Her zaman doğru/yanlış | always = yes", "scopes": "any" },
         "AND": { "desc": "Tüm koşullar doğru | AND = { trigger1 trigger2 }", "scopes": "any" },
         "OR": { "desc": "En az biri doğru | OR = { trigger1 trigger2 }", "scopes": "any" },
@@ -463,7 +463,7 @@
         "transfer_of_power": { "desc": "İktidar transferi", "scopes": "country" },
         "transfer_subject": { "desc": "Vasalı aktar", "scopes": "country" },
         "trigger_else_if": { "desc": "Trigger else-if", "scopes": "any" },
-        "unset_only_legal_party": { "desc": "Tek yasal partiyi kaldır", "scopes": "country" }
+        "unset_only_legal_party": { "desc": "Tek yasal partiyi kaldır", "scopes": "country" },
         "set_variable": { "desc": "Değişken ayarla | set_variable = { name = x value = 10 }", "scopes": "any" },
         "set_global_variable": { "desc": "Global değişken ayarla", "scopes": "any" },
         "set_local_variable": { "desc": "Lokal değişken ayarla", "scopes": "any" },
@@ -477,7 +477,7 @@
         "add_to_list": { "desc": "Listeye ekle | add_to_list = my_list", "scopes": "any" },
         "add_to_global_variable_list": { "desc": "Global listeye ekle", "scopes": "any" },
         "add_to_temporary_list": { "desc": "Geçici listeye ekle", "scopes": "any" },
-        "add_to_variable_list": { "desc": "Değişken listesine ekle | add_to_variable_list = { name = my_list target = scope }", "scopes": "any" }
+        "add_to_variable_list": { "desc": "Değişken listesine ekle | add_to_variable_list = { name = my_list target = scope }", "scopes": "any" },
         "remove_from_list": { "desc": "Listeden çıkar", "scopes": "any" },
         "remove_list_variable": { "desc": "Liste değişkenini kaldır", "scopes": "any" },
         "clear_variable_list": { "desc": "Listeyi temizle", "scopes": "any" },
