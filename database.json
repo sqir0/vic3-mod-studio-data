@@ -1,4 +1,4 @@
-    window.VIC3_DATABASE = {
+    {
 
         triggers: {
             // Core Logic
@@ -1387,4 +1387,4 @@
             'empty_state': { desc: 'Boş durum widget' },
             'loading_tip': { desc: 'Yükleme ipucu' },
         }
-    };
+    }
